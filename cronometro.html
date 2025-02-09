@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronómetro</title>
+    <link rel="stylesheet" href="cronometro.css"> 
+</head>
+<body>
+    <div id="cronometro">0</div>
+    <button id="startStop">Iniciar</button>
+    <button id="reset">Poner a Cero</button>
+
+    <script>
+        let segundos = 0;
+        let intervalo = null;
+        let enMarcha = false;
+
+        const cronometroDiv = document.getElementById('cronometro');
+        const startStop = document.getElementById('startStop');
+        const reset = document.getElementById('reset');
+
+        function actualizarCronometro() {
+            segundos++;
+            cronometroDiv.textContent = segundos;
+        }
+
+        startStop.addEventListener('click', () => {
+            if (enMarcha) {
+                clearInterval(intervalo);
+                startStop.textContent = 'Iniciar';
+            } else {
+                intervalo = setInterval(actualizarCronometro, 1000);
+                startStop.textContent = 'Parar';
+            }
+            enMarcha = !enMarcha;
+        });
+
+        reset.addEventListener('click', () => {
+            clearInterval(intervalo);
+            segundos = 0;
+            cronometroDiv.textContent = segundos;
+            startStop.textContent = 'Iniciar';
+            enMarcha = false;
+        });
+    </script>
+</body>
+</html>
